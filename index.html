@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Digital Time Capsule</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-light: #5D3FD3;
+            --primary-dark: #1fc7d3;
+            --secondary-light: #FF007F;
+            --secondary-dark: #14F195;
+            --bg-light: #f3f4f6;
+            --bg-dark: #121212;
+            --text-light: #1f2937;
+            --text-dark: #e5e7eb;
+            --card-light: rgba(255, 255, 255, 0.7);
+            --card-dark: rgba(30, 30, 30, 0.7);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        
+        /* Theme handling */
+        .light-mode {
+            --primary: var(--primary-light);
+            --secondary: var(--secondary-light);
+            --bg: var(--bg-light);
+            --text: var(--text-light);
+            --card-bg: var(--card-light);
+        }
+        
+        .dark-mode {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --bg: var(--bg-dark);
+            --text: var(--text-dark);
+            --card-bg: var(--card-dark);
+        }
+        
+        html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Space Grotesk', sans-serif;
+    transition: var(--transition);
+    scroll-behavior: smooth;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    justify-content: center;   /* center horizontally */
+    align-items: center;       /* center vertically */
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+        
+        body {
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--primary) 0%, var(--secondary) 100%);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            opacity: 0.1;
+        }
+        
+        .dark-mode .bg-gradient {
+            opacity: 0.2;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Main container */
+        .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* full viewport height for vertical centering */
+    box-sizing: border-box;
+}
+        
+        /* Header and branding */
+        header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo i {
+            font-size: 1.8rem;
+        }
+        
+        /* Theme toggle */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(15deg) scale(1.1);
+        }
+        
+        /* Main card and sections */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dark-mode .card-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .tab-button {
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            transition: var(--transition);
+            opacity: 0.6;
+        }
+        
+        .tab-button.active {
+            background: var(--primary);
+            color: white;
+            opacity: 1;
+        }
+        
+        .tab-button:hover:not(.active) {
+            opacity: 0.9;
+        }
+        
+        .card-body {
+            padding: 2rem;
+        }
+        
+        /* Input groups */
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+        
+        .dark-mode .input-field {
+            background: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-dark);
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(93, 63, 211, 0.2);
+        }
+        
+        .dark-mode .input-field:focus {
+            box-shadow: 0 0 0 3px rgba(31, 199, 211, 0.2);
+        }
+        
+        textarea.input-field {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* File input styling */
+        .file-input-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+            transition: var(--transition);
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .dark-mode .file-input-container {
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+        }
+        
+        .file-input-container:hover {
+            border-color: var(--primary);
+        }
+        
+        .file-input-container i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .file-input-container p {
+            margin: 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .file-input {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .file-name {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: 100%;
+        }
+        .input-group {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input-group label {
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-field {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+    transition: var(--transition);
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--text-light);
+    box-sizing: border-box;
+}
+
+        
+        /* Button styling */
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--text);
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .dark-mode .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Results section */
+        .result-section {
+            display: none;
+            margin-top: 2rem;
+            width: 100%;
+        }
+        
+        .result-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .key-box {
+            background: rgba(0, 0, 0, 0.05);
+            padding: 1rem;
+            border-radius: 12px;
+            font-family: monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .dark-mode .key-box {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .copy-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Spinner */
+        .spinner {
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Success animation */
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+            display: block;
+        }
+        
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid var(--primary);
+        }
+        
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        
+        .success-checkmark .check-icon::before, .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: var(--bg);
+            transform: rotate(-45deg);
+        }
+        
+        .success-checkmark .check-icon .icon-line {
+            height: 5px;
+            background-color: var(--primary);
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+        
+        .success-checkmark .check-icon .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+        
+        @keyframes icon-line-tip {
+            0% { width: 0; left: 1px; top: 19px; }
+            54% { width: 0; left: 1px; top: 19px; }
+            70% { width: 50px; left: -8px; top: 37px; }
+            84% { width: 17px; left: 21px; top: 48px; }
+            100% { width: 25px; left: 14px; top: 45px; }
+        }
+        
+        @keyframes icon-line-long {
+            0% { width: 0; right: 46px; top: 54px; }
+            65% { width: 0; right: 46px; top: 54px; }
+            84% { width: 55px; right: 0px; top: 35px; }
+            100% { width: 47px; right: 8px; top: 38px; }
+        }
+        
+        /* Hidden/visible elements */
+        .hidden {
+            display: none;
+        }
+        
+        /* Animations */
+        .animate-fade {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Decrypted content */
+        .decrypted-content {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .decrypted-message {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        
+        .dark-mode .decrypted-message {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .capsule-date {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin: 1rem 0;
+        }
+        
+        /* Neon effects */
+        .neon-border {
+            position: relative;
+        }
+        
+        .neon-border::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            border-radius: 26px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .neon-border:hover::after {
+            opacity: 0.6;
+        }
+        
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .card-body { padding: 1.5rem; }
+            .tab-buttons { gap: 0.5rem; }
+            .tab-button { padding: 0.5rem; font-size: 0.9rem; }
+            .logo span { display: none; }
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="bg-gradient"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-hourglass-half"></i>
+                <span>Digital Time Capsule</span>
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+        
+        <div class="card neon-border">
+            <div class="card-header">
+                <h2 id="cardTitle">Create Time Capsule</h2>
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="create">Create</button>
+                    <button class="tab-button" data-tab="open">Open</button>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <!-- Create Capsule Section -->
+                <div id="createSection" class="tab-content animate-fade">
+                    <div class="input-group">
+                        <label for="messageInput">Your Message</label>
+                        <textarea id="messageInput" class="input-field" placeholder="Write a message to your future self..."></textarea>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label>Add Files (optional)</label>
+                        <div class="file-input-container" id="dropArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag & drop files here or click to browse</p>
+                            <p class="file-name" id="fileName"></p>
+                            <input type="file" id="fileInput" class="file-input">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="unlockDate">Unlock Date</label>
+                        <input type="date" id="unlockDate" class="input-field">
+                    </div>
+                    
+                    <button id="encryptBtn" class="btn">
+                        <i class="fas fa-lock"></i> Encrypt & Save
+                    </button>
+                </div>
+                
+                <!-- Open Capsule Section -->
+                <div id="openSection" class="tab-content hidden animate-fade">
+                    <div class="input-group">
+                        <label>Upload Encrypted Capsule</label>
+                        <div class="file-input-container" id="decryptDropArea">
+                            <i class="fas fa-file-import"></i>
+                            <p>Drag & drop your capsule file or click to browse</p>
+                            <p class="file-name" id="decryptFileName"></p>
+                            <input type="file" id="encryptedFile" class="file-input">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="decryptionKey">Decryption Key</label>
+                        <textarea id="decryptionKey" class="input-field" placeholder="Paste your decryption key here..."></textarea>
+                    </div>
+                    
+                    <button id="decryptBtn" class="btn">
+                        <i class="fas fa-unlock"></i> Decrypt Capsule
+                    </button>
+                </div>
+                
+                <!-- Loading state -->
+                <div id="loadingSection" class="hidden animate-fade" style="text-align: center; padding: 2rem;">
+                    <div class="spinner"></div>
+                    <p id="loadingText" style="margin-top: 1rem;">Processing your time capsule...</p>
+                </div>
+                
+                <!-- Decrypted content -->
+                <div id="decryptedContent" class="decrypted-content animate-fade">
+                    <div class="success-checkmark">
+                        <div class="check-icon">
+                            <span class="icon-line line-tip"></span>
+                            <span class="icon-line line-long"></span>
+                        </div>
+                    </div>
+                    
+                    <h3>Time Capsule Opened!</h3>
+                    <p class="capsule-date" id="capsuleDate"></p>
+                    
+                    <div id="decryptedMessage" class="decrypted-message"></div>
+                    
+                    <div id="decryptedFile"></div>
+                    
+                    <button id="backBtn" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Encrypted Output -->
+        <div id="encryptedOutput" class="result-section animate-fade">
+            <div class="result-card">
+                <h3><i class="fas fa-key"></i> Your Decryption Key</h3>
+                <p>Save this key in a secure place. You'll need it to open your capsule.</p>
+                
+                <div class="key-box" id="keyOutput">
+                    <button class="copy-btn" id="copyKeyBtn" title="Copy to clipboard">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button id="downloadBtn" class="btn">
+                        <i class="fas fa-download"></i> Download Capsule
+                    </button>
+                    <button id="createNewBtn" class="btn btn-secondary">
+                        <i class="fas fa-plus"></i> Create Another
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            &copy; 2025 Digital Time Capsule | Encrypt messages and files for future you
+        </footer>
+    </div>
+    
+    <script>
+        // Initialize with system preference for dark/light mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.body.classList.remove('light-mode');
+            document.body.classList.add('dark-mode');
+            document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        
+        // DOM Elements
+        const themeToggle = document.getElementById('themeToggle');
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const createSection = document.getElementById('createSection');
+        const openSection = document.getElementById('openSection');
+        const loadingSection = document.getElementById('loadingSection');
+        const encryptedOutput = document.getElementById('encryptedOutput');
+        const decryptedContent = document.getElementById('decryptedContent');
+        const messageInput = document.getElementById('messageInput');
+        const fileInput = document.getElementById('fileInput');
+        const unlockDate = document.getElementById('unlockDate');
+        const fileName = document.getElementById('fileName');
+        const encryptBtn = document.getElementById('encryptBtn');
+        const decryptFileName = document.getElementById('decryptFileName');
+        const encryptedFile = document.getElementById('encryptedFile');
+        const decryptionKey = document.getElementById('decryptionKey');
+        const decryptBtn = document.getElementById('decryptBtn');
+        const keyOutput = document.getElementById('keyOutput');
+        const copyKeyBtn = document.getElementById('copyKeyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const createNewBtn = document.getElementById('createNewBtn');
+        const backBtn = document.getElementById('backBtn');
+        const decryptedMessage = document.getElementById('decryptedMessage');
+        const decryptedFile = document.getElementById('decryptedFile');
+        const capsuleDate = document.getElementById('capsuleDate');
+        const dropArea = document.getElementById('dropArea');
+        const decryptDropArea = document.getElementById('decryptDropArea');
+        const cardTitle = document.getElementById('cardTitle');
+        
+        // State variables
+        let currentCapsule = null;
+        let isLoading = false;
+        
+        // Theme toggle
+        themeToggle.addEventListener('click', () => {
+            if (document.body.classList.contains('light-mode')) {
+                document.body.classList.remove('light-mode');
+                document.body.classList.add('dark-mode');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                document.body.classList.remove('dark-mode');
+                document.body.classList.add('light-mode');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        });
+        
+        // Tab switching
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Only allow tab switching if not loading
+                if (isLoading) return;
+                
+                const tab = button.dataset.tab;
+                
+                // Update active button
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show relevant section
+                if (tab === 'create') {
+                    createSection.classList.remove('hidden');
+                    openSection.classList.add('hidden');
+                    encryptedOutput.style.display = 'none';
+                    decryptedContent.style.display = 'none';
+                    cardTitle.textContent = 'Create Time Capsule';
+                } else {
+                    createSection.classList.add('hidden');
+                    openSection.classList.remove('hidden');
+                    encryptedOutput.style.display = 'none';
+                    decryptedContent.style.display = 'none';
+                    cardTitle.textContent = 'Open Time Capsule';
+                }
+            });
+        });
+        
+        // File input handling
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                fileName.textContent = fileInput.files[0].name;
+                dropArea.style.borderColor = 'var(--primary)';
+            } else {
+                fileName.textContent = '';
+                dropArea.style.borderColor = '';
+            }
+        });
+        
+        encryptedFile.addEventListener('change', () => {
+            if (encryptedFile.files.length > 0) {
+                decryptFileName.textContent = encryptedFile.files[0].name;
+                decryptDropArea.style.borderColor = 'var(--primary)';
+            } else {
+                decryptFileName.textContent = '';
+                decryptDropArea.style.borderColor = '';
+            }
+        });
+        
+        // Drag and drop handling
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, preventDefaults, false);
+            decryptDropArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropArea.addEventListener(eventName, highlight, false);
+            decryptDropArea.addEventListener(eventName, highlightDecrypt, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropArea.addEventListener(eventName, unhighlight, false);
+            decryptDropArea.addEventListener(eventName, unhighlightDecrypt, false);
+        });
+        
+        function highlight() {
+            dropArea.style.borderColor = 'var(--primary)';
+            dropArea.style.backgroundColor = 'rgba(93, 63, 211, 0.05)';
+        }
+        
+        function unhighlight() {
+            dropArea.style.borderColor = '';
+            dropArea.style.backgroundColor = '';
+        }
+        
+        function highlightDecrypt() {
+            decryptDropArea.style.borderColor = 'var(--primary)';
+            decryptDropArea.style.backgroundColor = 'rgba(93, 63, 211, 0.05)';
+        }
+        
+        function unhighlightDecrypt() {
+            decryptDropArea.style.borderColor = '';
+            decryptDropArea.style.backgroundColor = '';
+        }
+        
+        dropArea.addEventListener('drop', handleDrop, false);
+        decryptDropArea.addEventListener('drop', handleDecryptDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                fileInput.files = files;
+                fileName.textContent = files[0].name;
+            }
+        }
+        
+        function handleDecryptDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            
+            if (files.length > 0) {
+                encryptedFile.files = files;
+                decryptFileName.textContent = files[0].name;
+            }
+        }
+        
+        // Helper Functions
+        function arrayBufferToBase64(buffer) {
+            let binary = '';
+            const bytes = new Uint8Array(buffer);
+            for (let i = 0; i < bytes.byteLength; i++) {
+                binary += String.fromCharCode(bytes[i]);
+            }
+            return window.btoa(binary);
+        }
+        
+        function base64ToArrayBuffer(base64) {
+            const binaryString = window.atob(base64);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+        
+        function setLoading(loading, text = 'Processing your time capsule...') {
+            isLoading = loading;
+            if (loading) {
+                createSection.classList.add('hidden');
+                openSection.classList.add('hidden');
+                loadingSection.classList.remove('hidden');
+                document.getElementById('loadingText').textContent = text;
+            } else {
+                loadingSection.classList.add('hidden');
+            }
+        }
+        
+        function formatDate(timestamp) {
+            const date = new Date(timestamp);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+        
+        // Main functions
+        async function encryptData() {
+            const message = messageInput.value.trim();
+            const file = fileInput.files[0];
+            const date = unlockDate.value;
+            
+            if (!message && !file) {
+                alert('Please enter a message or attach a file.');
+                return;
+            }
+            
+            if (!date) {
+                alert('Please set an unlock date.');
+                return;
+            }
+            
+            setLoading(true, 'Encrypting your time capsule...');
+            
+            try {
+                // Small delay to show loading animation
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                // Prepare payload
+                const payload = {
+                    message: message || null,
+                    file: file ? await file.arrayBuffer() : null,
+                    filename: file?.name || null,
+                    unlockDate: new Date(date).getTime()
+                };
+                
+                // Generate key
+                const key = await window.crypto.subtle.generateKey(
+                    { name: "AES-GCM", length: 256 }, true, ["encrypt", "decrypt"]
+                );
+                
+                // Export key
+                const exportedKey = await window.crypto.subtle.exportKey("jwk", key);
+                
+                // Encrypt
+                const iv = window.crypto.getRandomValues(new Uint8Array(12));
+                const encrypted = await window.crypto.subtle.encrypt(
+                    { name: "AES-GCM", iv },
+                    key,
+                    new TextEncoder().encode(JSON.stringify(payload))
+                );
+                
+                // Prepare capsule
+                currentCapsule = {
+                    iv: arrayBufferToBase64(iv.buffer),
+                    data: arrayBufferToBase64(encrypted),
+                    unlockDate: payload.unlockDate
+                };
+                
+                // Show results
+                keyOutput.textContent = JSON.stringify(exportedKey, null, 2);
+                encryptedOutput.style.display = 'block';
+                createSection.classList.add('hidden');
+                openSection.classList.add('hidden');
+                
+                // Reset form
+                messageInput.value = '';
+                fileInput.value = '';
+                fileName.textContent = '';
+                unlockDate.value = '';
+            } catch (error) {
+                console.error('Encryption error:', error);
+                alert('An error occurred during encryption. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        async function decryptData() {
+            const file = encryptedFile.files[0];
+            const keyString = decryptionKey.value.trim();
+            
+            if (!file) {
+                alert('Please upload an encrypted capsule.');
+                return;
+            }
+            
+            if (!keyString) {
+                alert('Please enter the decryption key.');
+                return;
+            }
+            
+            setLoading(true, 'Decrypting your time capsule...');
+            
+            try {
+                // Small delay to show loading animation
+                await new Promise(resolve => setTimeout(resolve, 800));
+                
+                let capsule;
+                try {
+                    capsule = JSON.parse(await file.text());
+                } catch (e) {
+                    alert('Invalid capsule file. The file format is not recognized.');
+                    setLoading(false);
+                    return;
+                }
+                
+                let keyObj;
+                try {
+                    keyObj = JSON.parse(keyString);
+                } catch (e) {
+                    alert('Invalid key format. Please ensure you have copied the entire key.');
+                    setLoading(false);
+                    return;
+                }
+                
+                // Import key
+                const key = await window.crypto.subtle.importKey(
+                    "jwk", keyObj, { name: "AES-GCM" }, false, ["decrypt"]
+                );
+                
+                // Decrypt
+                const iv = base64ToArrayBuffer(capsule.iv);
+                const data = base64ToArrayBuffer(capsule.data);
+                
+                const decrypted = await window.crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: new Uint8Array(iv) },
+                    key,
+                    data
+                );
+                
+                const payload = JSON.parse(new TextDecoder().decode(decrypted));
+                
+                // Check unlock date
+                if (Date.now() < payload.unlockDate) {
+                    alert(`This capsule is not ready to open yet. It will unlock on ${formatDate(payload.unlockDate)}.`);
+                    setLoading(false);
+                    return;
+                }
+                
+                // Show decrypted content
+                if (payload.message) {
+                    decryptedMessage.textContent = payload.message;
+                } else {
+                    decryptedMessage.textContent = '(No message was included in this capsule)';
+                }
+                
+                decryptedFile.innerHTML = '';
+                if (payload.file) {
+                    const blob = new Blob([new Uint8Array(payload.file)], { type: 'application/octet-stream' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = payload.filename || 'capsule-file';
+                    a.className = 'btn';
+                    a.innerHTML = '<i class="fas fa-file-download"></i> Download File';
+                    decryptedFile.appendChild(a);
+                }
+                
+                capsuleDate.textContent = `Created for opening on ${formatDate(payload.unlockDate)}`;
+                
+                // Show decrypted content section
+                openSection.classList.add('hidden');
+                decryptedContent.style.display = 'block';
+                
+                // Reset decryption form
+                encryptedFile.value = '';
+                decryptionKey.value = '';
+                decryptFileName.textContent = '';
+            } catch (error) {
+                console.error('Decryption error:', error);
+                alert('Decryption failed. Please ensure you have the correct key and capsule file.');
+            } finally {
+                setLoading(false);
+            }
+        }
+        
+        function downloadCapsule() {
+            if (!currentCapsule) {
+                alert('No capsule data available to download.');
+                return;
+            }
+            
+            const blob = new Blob([JSON.stringify(currentCapsule)], { type: 'application/json' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `time-capsule-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+        }
+        
+        // Button click handlers
+        encryptBtn.addEventListener('click', encryptData);
+        decryptBtn.addEventListener('click', decryptData);
+        downloadBtn.addEventListener('click', downloadCapsule);
+        
+        copyKeyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(keyOutput.textContent)
+                .then(() => {
+                    const originalIcon = copyKeyBtn.innerHTML;
+                    copyKeyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                    setTimeout(() => {
+                        copyKeyBtn.innerHTML = originalIcon;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Could not copy text: ', err);
+                    alert('Failed to copy to clipboard. Please select and copy manually.');
+                });
+        });
+        
+        createNewBtn.addEventListener('click', () => {
+            encryptedOutput.style.display = 'none';
+            createSection.classList.remove('hidden');
+            
+            // Reset to create tab
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.tab-button[data-tab="create"]').classList.add('active');
+            cardTitle.textContent = 'Create Time Capsule';
+        });
+        
+        backBtn.addEventListener('click', () => {
+            decryptedContent.style.display = 'none';
+            openSection.classList.remove('hidden');
+        });
+        
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        unlockDate.min = today;
+    </script>
+</body>
+</html>
