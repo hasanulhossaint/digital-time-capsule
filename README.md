@@ -74,7 +74,7 @@ Let your memories travel through time, untouched, until you (or someone you trus
 - No installation needed!
 - Just upload 'index.html' to any static host (GitHub Pages, Netlify, Vercel, Hostinger, etc.)
 
-Or try the [🌐 Live Demo](#) *(https://hasanulhossaint.github.io/digital-time-capsule/)*
+Or try the [🌐 Live Demo](#) *(https://hasanulhossaint.github.io/digital-time-capsule)*
 
 ---
 
